@@ -1,7 +1,16 @@
 <template>
   <div class="bg-white shadow overflow-hidden sm:rounded-md m-32">
+    <!-- JavaScript expressions in Vue are enclosed in double curly brackets. -->
+    <!-- We use the triple equals '===' to compare the literal booleans wi -->
+    <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
+    <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
+    <p> <strong> We have {{todos.length }} people </strong> </p>
+    
+  <!-- We will now loop through for todos using the v-for directive -->
+  <!-- we need to make sure the variable todos matches the main App.vue! -->
   <ul>
-    <li>
+    <li v-for="todo in todos"
+    :key="todo.id">
       <a href="#" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
         <div class="flex items-center px-4 py-4 sm:px-6">
           <div class="min-w-0 flex-1 flex items-center">
@@ -10,12 +19,12 @@
             </div>
             <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
               <div>
-                <div class="text-sm leading-5 font-medium text-indigo-600 truncate">Ricardo Cooper</div>
+                <div class="text-sm leading-5 font-medium text-indigo-600 truncate">{{ todo.name }}</div>
                 <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
                   <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884zM18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" clip-rule="evenodd"/>
                   </svg>
-                  <span class="truncate">ricardo.cooper@example.com</span>
+                  <span class="truncate"> hi {{ todo.email }}</span>
                 </div>
               </div>
               <div class="hidden md:block">
@@ -42,7 +51,7 @@
         </div>
       </a>
     </li>
-    <li class="border-t border-gray-200">
+    <!-- <li class="border-t border-gray-200">
       <a href="#" class="block hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition duration-150 ease-in-out">
         <div class="flex items-center px-4 py-4 sm:px-6">
           <div class="min-w-0 flex-1 flex items-center">
@@ -123,13 +132,16 @@
           </div>
         </div>
       </a>
-    </li>
+    </li> -->
   </ul>
 </div>
 </template>
 
 <script type = "text/javascript" >
-export default {}
+export default {
+  // we need to access the todos passed from the main App.vue
+  props: ['todos']
+}
 </script>
 <style>
 </style>
